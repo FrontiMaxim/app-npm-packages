@@ -1,0 +1,12 @@
+<li>
+   <div>
+      {{ id }}
+      {{ isActive }}
+   </div> 
+   <div>
+      {{ weeklyDownloads  | roundingNumbers }}
+   </div> 
+   <div>
+    {{ dependencyCount | transformDependency }}
+   </div> 
+</li>

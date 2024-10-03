@@ -1,4 +1,8 @@
 <main class="main">
-  
+  <app-search (onChange)="handleChange($event)" />
+  <app-list 
+    [packages$]="packages$"
+    [search]="search"
+    (onHover)="handleHover($event)"/>
 </main>
 

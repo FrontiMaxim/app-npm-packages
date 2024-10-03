@@ -1,0 +1,10 @@
+<ul *ngIf="packages$ | async as packages">
+    <app-item-list 
+        *ngFor="let package of packages | filterPackages:search"
+        (mouseenter)="handleHover($event)"
+        [id]="package.id"
+        [weeklyDownloads]="package.weeklyDownloads"
+        [dependencyCount]="package.dependencyCount"
+        [isActive]="package.isActive"
+    />
+</ul>
