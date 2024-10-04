@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { INpmPackage } from '../models';
-import { map } from 'rxjs';
+import { catchError, map, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -22,6 +22,10 @@ export class PackageService {
   }
 
   getDependencies(id: string) {
-    this.http.get<string[]>(`${environment.apiUrl}/${id}/dependencies`);
+    return this.http.get<string[]>(`${environment.apiUrl}/${id}/dependencies`).pipe(catchError(this.handleError));
+  }
+
+  handleError(_: HttpErrorResponse) {
+    return throwError(() => 'Не удалось получить зависимости по пакету...'); 
   }
 }

@@ -4,39 +4,62 @@ import { ListComponent } from './components/list/list.component';
 import { SearchComponent } from './components/search/search.component';
 import { INpmPackage } from './models';
 import { PackageService } from './services';
-import { Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
+import { ButtonComponent } from './components/button/button.component';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ListComponent, SearchComponent],
+  imports: [RouterOutlet, ListComponent, SearchComponent, ButtonComponent, NgIf],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
   constructor(private packageService: PackageService) {}
 
-  packages$!: Observable<INpmPackage[]>;
+  packages: INpmPackage[] = [];
+  dependencies: string[] = [];
   search: string = '';
+  isLoading = false;
+
+  private subscribePackages!: Subscription;
+  private subscribeDependencies!: Subscription;
 
   handleHover(id: string) {
-    // this.packageService.getDependencies(id).subscribe((dependencies) => {
-    //   this.packages = this.packages.map(item => ({
-    //     ...item,
-    //     isActive: dependencies.includes(item.id)
-    //   }))
-    // });
+    this.subscribeDependencies = this.packageService
+      .getDependencies(id)
+      .subscribe((dependencies) => (this.dependencies = dependencies));
+  }
+
+  handleNotHover() {
+    this.dependencies = [];
+  }
+
+  handleClick() {
+    this.loadPackages();
   }
 
   handleChange(search: string) {
     this.search = search;
   }
 
+  loadPackages() {
+    this.isLoading = true;
+    this.subscribePackages = this.packageService
+      .getPackages()
+      .subscribe((packages) => {
+        this.isLoading = false;
+        this.packages = packages;
+      });
+  }
+
   ngOnInit(): void {
-    this.packages$ = this.packageService.getPackages();
+    this.loadPackages();
   }
 
   ngOnDestroy() {
-    // Тут отписываемся
+    this.subscribePackages.unsubscribe();
+    this.subscribeDependencies.unsubscribe();
   }
 }

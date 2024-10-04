@@ -1,8 +1,22 @@
 <main class="main">
-  <app-search (onChange)="handleChange($event)" />
-  <app-list 
-    [packages$]="packages$"
-    [search]="search"
-    (onHover)="handleHover($event)"/>
+  <div class="main__panel">
+    <app-search (onChange)="handleChange($event)" />
+
+    <div class="main__button">
+      <app-button (onClick)="handleClick()"/>
+    </div>
+    
+  </div>
+  <div class="main__list">
+    <div class="main__loading" *ngIf="isLoading">Загрузка данных...</div>
+    <app-list 
+      *ngIf="!isLoading"
+      [packages]="packages"
+      [dependencies]="dependencies"
+      [search]="search"
+      (onHover)="handleHover($event)"
+      (onNotHover)="handleNotHover()"
+    />
+  </div>
 </main>
 

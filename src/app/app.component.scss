@@ -1,0 +1,36 @@
+.main {
+
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 20px;
+
+    &__panel {
+        display: flex;
+        align-items: center;
+
+        width: 70%;
+    }
+
+    &__button {
+        margin-left: 10px;
+    }
+
+    &__list {
+        width: 70%;
+        height: 40%;
+    }
+
+    &__loading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 100%;
+        height: 100%;
+    }
+}

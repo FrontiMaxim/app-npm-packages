@@ -10,7 +10,7 @@ export class FilterPackagesPipe implements PipeTransform {
     const searchStringLowerCase = search.toLowerCase();
 
     return packages.filter(({ id }) =>
-      id.toLowerCase().includes(searchStringLowerCase)
+      id.toLowerCase().startsWith(searchStringLowerCase)
     );
   }
 }

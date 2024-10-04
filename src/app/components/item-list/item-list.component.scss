@@ -1,0 +1,51 @@
+.item {
+
+    width: 100%;
+
+    font-weight: 700;
+
+    border: 2px solid #000;
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    &__header {
+
+        padding: 5px 0 5px 10px;
+        border-bottom: 2px solid #000;
+
+        &_active {
+            background-color: #FFDDDD;
+        }
+    }
+
+    &__first-word {
+        color: #F29A5F;
+    }
+
+    &__other-words {
+        color: #A0A0A0;
+    }
+
+    &:hover &__header {
+
+        background-color: #E0F2FF;
+    }
+
+    &__body {
+        padding: 5px 0 20px 10px;
+    }
+
+    &__downloads {
+        display: flex;
+        align-items: center;
+    }
+
+    &__icon {
+        margin-left: 10px;
+    }
+
+    &__dependencies {
+        color: #A0A0A0;
+    }
+}

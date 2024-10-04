@@ -1,12 +1,15 @@
-<li>
-   <div>
-      {{ id }}
-      {{ isActive }}
+<div class="item">
+   <div class="item__header" [ngClass]="{ item__header_active: isActive}">
+      <span class="item__first-word">{{ id.substring(0, id.indexOf('/') + 1) }}</span>
+      <span class="item__other-words">{{ id.substring(id.indexOf('/') + 1) }}</span>
    </div> 
-   <div>
-      {{ weeklyDownloads  | roundingNumbers }}
+   <div class="item__body" >
+      <div class="item__downloads">
+         <span>{{ weeklyDownloads  | roundingNumbers }}</span>
+         <svg-icon class="item__icon" src="assets/download.svg" />
+      </div> 
+      <div class="item__dependencies">
+       {{ dependencyCount | transformDependency }}
+      </div> 
    </div> 
-   <div>
-    {{ dependencyCount | transformDependency }}
-   </div> 
-</li>
+</div>
